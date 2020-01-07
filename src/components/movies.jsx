@@ -7,20 +7,22 @@ class Movies extends Component {
   };
   handleDelete = movie => {
     const movies = this.state.movies.filter(m => m._id !== movie._id);
-    this.setState({ movies: movies });
+    this.setState({ movies });
   };
   render() {
+    const { length: moviesCount } = this.state.movies;
+    if (moviesCount === 0) return <p>There are no movies in the database</p>;
     return (
       <React.Fragment>
-        <p>{this.getTotalMovies()}</p>
-        <table className="table">
+        <p>Showing {moviesCount} movies from the database</p>
+        <table className="table table-bordered">
           <thead>
             <tr>
               <th>Title</th>
               <th>Genre</th>
               <th>Stock</th>
               <th>Rate</th>
-              <th></th>
+              <th>Delete a movie</th>
             </tr>
           </thead>
           <tbody>
@@ -44,12 +46,6 @@ class Movies extends Component {
         </table>
       </React.Fragment>
     );
-  }
-  getTotalMovies() {
-    const { movies } = this.state;
-    return movies.length === 0
-      ? "There are no movies in the database"
-      : `Showing ${movies.length} from the database`;
   }
 }
 
