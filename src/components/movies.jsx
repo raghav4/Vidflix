@@ -38,8 +38,7 @@ class Movies extends Component {
   handleSort = sortColumn => {
     this.setState({ sortColumn });
   };
-  render() {
-    const { length: moviesCount } = this.state.movies;
+  getPageData = () => {
     const {
       currentPage,
       pageSize,
@@ -47,21 +46,26 @@ class Movies extends Component {
       sortColumn,
       movies: allMovies
     } = this.state;
-    if (moviesCount === 0) return <p>There are no movies in the database</p>;
-
     const filtered =
       selectedGenre && selectedGenre._id
         ? allMovies.filter(m => m.genre._id === selectedGenre._id)
         : allMovies;
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     const movies = paginate(sorted, currentPage, pageSize);
+    return { totalCount: filtered.length, data: movies };
+  };
+  render() {
+    const { length: moviesCount } = this.state.movies;
+    const { currentPage, pageSize, sortColumn } = this.state;
+    if (moviesCount === 0) return <p>There are no movies in the database</p>;
+    const { totalCount, data: movies } = this.getPageData();
     return (
       <React.Fragment>
         <p className='text-center'>
-          Showing {filtered.length} movies from the database
+          Showing {totalCount} movies from the database
         </p>
         <div className='row'>
-          <div className='col-3 p-auto'>
+          <div className='col-auto p-auto'>
             <ListGroup
               items={this.state.genres}
               selectedItem={this.state.selectedGenre}
@@ -77,7 +81,7 @@ class Movies extends Component {
               onSort={this.handleSort}
             />
             <Pagination
-              itemsCount={filtered.length}
+              itemsCount={totalCount}
               pageSize={pageSize}
               currentPage={currentPage}
               onPageChange={this.handlePageChange}
