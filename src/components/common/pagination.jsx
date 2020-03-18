@@ -1,7 +1,7 @@
-import React from 'react';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import _ from "lodash";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
 	console.log(currentPage);
 	const pagesCount = Math.ceil(itemsCount / pageSize);
@@ -14,9 +14,9 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
 				{pages.map(page => (
 					<li
 						key={page}
-						className={page === currentPage ? 'page-item active' : 'page-item'}>
+						className={page === currentPage ? "page-item active" : "page-item"}>
 						<Link
-							style={{ cursor: 'pointer' }}
+							style={{ cursor: "pointer" }}
 							onClick={() => onPageChange(page)}
 							className='page-link'>
 							{page}

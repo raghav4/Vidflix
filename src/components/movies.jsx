@@ -1,21 +1,28 @@
-import React, { Component } from 'react';
-import { getMovies } from '../services/fakeMovieService';
-import MoviesTable from './movieTable';
-import { getGenres } from '../services/fakeGenreService';
-import Pagination from './common/pagination';
-import { paginate } from '../utils/paginate';
-import ListGroup from './common/listGroup';
-import _ from 'lodash';
+import React, { Component } from "react";
+import { getMovies } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
+import { paginate } from "../utils/paginate";
+import MoviesTable from "./movieTable";
+import Pagination from "./common/pagination";
+import ListGroup from "./common/listGroup";
+import _ from "lodash";
+import { Link } from "react-router-dom";
 class Movies extends Component {
 	state = {
 		movies: [],
 		genres: [],
 		currentPage: 1,
 		pageSize: 4,
-		sortColumn: { path: 'title', order: 'asc' }
+		sortColumn: { path: "title", order: "asc" }
+	};
+	styles = {
+		width: 115,
+		height: 25,
+		cellPadding: 10,
+		radius: 5
 	};
 	componentDidMount() {
-		const genres = [{ _id: '', name: 'All Genres' }, ...getGenres()];
+		const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
 		this.setState({ movies: getMovies(), genres });
 	}
 	handleDelete = movie => {
@@ -61,11 +68,15 @@ class Movies extends Component {
 		const { totalCount, data: movies } = this.getPageData();
 		return (
 			<React.Fragment>
-				<p className='text-center'>
-					Showing {totalCount} movies from the database
-				</p>
+				<p className='text-center'>Showing {totalCount} movies from the database</p>
 				<div className='row'>
 					<div className='col-auto p-auto'>
+						<Link
+							to='/movies/new'
+							className='btn btn-primary px-4 py-2 mb-3'
+							style={{ marginBottom: 20 }}>
+							New Movie
+						</Link>
 						<ListGroup
 							items={this.state.genres}
 							selectedItem={this.state.selectedGenre}

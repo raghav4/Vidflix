@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Joi from "joi-browser";
+import Joi, { errors } from "joi-browser";
 import Input from "./input";
+import Select from "./select";
 class Form extends Component {
 	state = {
 		data: {},
@@ -31,6 +32,7 @@ class Form extends Component {
 		this.doSubmit();
 	};
 	handleChange = ({ currentTarget: input }) => {
+		console.log("Handle Change!!");
 		const errors = { ...this.state.errors };
 		const errorMessage = this.validateProperty(input);
 
@@ -39,7 +41,7 @@ class Form extends Component {
 
 		const data = { ...this.state.data };
 		data[input.name] = input.value;
-
+		console.log(input.value);
 		this.setState({ data, errors });
 	};
 
@@ -50,7 +52,19 @@ class Form extends Component {
 			</button>
 		);
 	}
-	renderInput(name, label, type = "text") {
+	renderDropdown() {
+		return (
+			<div className='input-group mb-3'>
+				<select className='custom-select' id='inputGroupSelect03'>
+					<option selected>Choose...</option>
+					<option value='1'>One</option>
+					<option value='2'>Two</option>
+					<option value='3'>Three</option>
+				</select>
+			</div>
+		);
+	}
+	renderInput(name, label, value, type = "text") {
 		const { data, errors } = this.state;
 		return (
 			<Input
@@ -60,6 +74,19 @@ class Form extends Component {
 				onChange={this.handleChange}
 				error={errors[name]}
 				type={type}
+			/>
+		);
+	}
+	renderSelect(name, label, options) {
+		const { data, error } = this.state;
+		return (
+			<Select
+				name={name}
+				value={data[name]}
+				label={label}
+				options={options}
+				onChange={this.handleChange}
+				error={errors[name]}
 			/>
 		);
 	}
