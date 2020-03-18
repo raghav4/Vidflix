@@ -1667,7 +1667,7 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zeit-ui/style@^0.9.3":
+"@zeit-ui/style@^0.9.4":
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/@zeit-ui/style/-/style-0.9.4.tgz#b5e77216ec6cb4e31fbb581210d20a9daee23728"
   integrity sha512-WCGhcLC4Qj4XDgES33kziEVw7Q+Jcoja+JGX4a/5oSr/ZWEiWoSX0KCtpmieWbzQJ1K3LKruHSvxl7cNLEGr+w==
